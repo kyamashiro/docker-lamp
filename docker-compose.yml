@@ -1,17 +1,15 @@
 version: '3.7'
 
 services:
-  ### Apache ##############################################
-  httpd:
-    build: ./httpd
-    container_name: httpd
+  ### PHP & Apache ##############################################
+  php-apache:
+    build: ./php-apache
+    container_name: php-apache
     ports:
       - 80:80
     privileged: true
     volumes:
       - ./workspace:/var/www/html
-      - ./httpd/vhost.conf:/etc/httpd/conf.d/vhost.conf
-      - ./httpd/httpd.conf:/etc/httpd/conf/httpd.conf
   ### MySQL ##############################################
   mysql:
     image: mysql:5.7
@@ -25,4 +23,3 @@ services:
     volumes:
       - ./db/init:/docker-entrypoint-initdb.d
       - ./db/data:/var/lib/mysql
-

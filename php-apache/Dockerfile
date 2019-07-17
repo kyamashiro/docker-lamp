@@ -10,7 +10,11 @@ RUN apt-get update -yqq \
     && apt-get install wget -yqq \
     && apt-get install zip -yqq \
     && apt-get install unzip -yqq \
-    && apt-get install vim -yqq
+    && apt-get install vim -yqq \
+    && apt-get install -y ssmtp mailutils -yqq \
+    && echo 'mysql-server mysql-server/root_password password pass' | debconf-set-selections \
+    && echo 'mysql-server mysql-server/root_password_again password pass' | debconf-set-selections \
+    && apt install -y mysql-server
 
 RUN wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig \
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
@@ -20,3 +24,11 @@ RUN wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > install
     && mv composer.phar /usr/local/bin/composer \
     && composer config -g repos.packagist composer https://packagist.jp \
     && composer global require hirak/prestissimo
+
+COPY ./apache2 /etc/apache2/sites-enabled
+
+# mod_rewriteを有効化
+RUN a2enmod rewrite
+
+# mysql driver
+RUN docker-php-ext-install pdo_mysql

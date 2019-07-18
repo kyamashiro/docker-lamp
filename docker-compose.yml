@@ -26,6 +26,7 @@ services:
     volumes:
       - ./db/init:/docker-entrypoint-initdb.d
       - ./db/data:/var/lib/mysql
+      - ./php-apache/msmtprc:/etc/msmtprc
   ### Redis ##############################################
   redis:
     image: "redis:3.2.4"

@@ -11,10 +11,10 @@ RUN apt-get update -yqq \
     && apt-get install zip -yqq \
     && apt-get install unzip -yqq \
     && apt-get install vim -yqq \
-    && apt-get install -y ssmtp mailutils -yqq \
+    && apt-get install msmtp msmtp-mta -yqq \
     && echo 'mysql-server mysql-server/root_password password pass' | debconf-set-selections \
     && echo 'mysql-server mysql-server/root_password_again password pass' | debconf-set-selections \
-    && apt install -y mysql-server
+    && apt install -y default-mysql-server
 
 RUN wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig \
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \

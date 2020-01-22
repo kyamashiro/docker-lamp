@@ -1,20 +1,23 @@
-FROM php:7.3-apache
+FROM php:7.4-apache
 
 RUN yes | pecl install xdebug \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_autostart=on" >> /usr/local/etc/php/conf.d/xdebug.ini
 
-RUN apt-get update -yqq \
-    && apt-get install git -yqq \
-    && apt-get install wget -yqq \
-    && apt-get install zip -yqq \
-    && apt-get install unzip -yqq \
-    && apt-get install vim -yqq \
-    && apt-get install -y ssmtp mailutils -yqq \
+RUN apt update -yqq && apt install -yqq \
+    git \
+    wget \
+    zip \
+    unzip \
+    vim \
+    msmtp msmtp-mta \
+    default-mysql-server \
     && echo 'mysql-server mysql-server/root_password password pass' | debconf-set-selections \
     && echo 'mysql-server mysql-server/root_password_again password pass' | debconf-set-selections \
-    && apt install -y mysql-server
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && docker-php-ext-install pdo_mysql
 
 RUN wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig \
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
@@ -27,8 +30,6 @@ RUN wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > install
 
 COPY ./apache2 /etc/apache2/sites-enabled
 
-# mod_rewriteを有効化
-RUN a2enmod rewrite
-
-# mysql driver
-RUN docker-php-ext-install pdo_mysql
+RUN a2enmod rewrite \
+    && usermod -u 1000 www-data \
+    && chown -R www-data:www-data /var/www

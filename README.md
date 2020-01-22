@@ -1,11 +1,12 @@
 # docker-lamp
 
-Apache + MySQL + PHP + Composer
+Apache + MySQL + PHP7.4 + Composer + MailCatcher
 
 ```
-make docker/start
-make docker/stop
-make docker/remove
-make php/bash
+make build
+make start
+make stop
+make remove
+make bash
 make mysql/bash
 ```

@@ -1,17 +1,17 @@
-docker/start: docker-compose.yml
+start: docker-compose.yml
 	docker-compose up -d
 
-docker/build: docker-compose.yml
+build: docker-compose.yml
 	docker-compose -f "docker-compose.yml" up -d --build
 
-docker/stop:
+stop:
 	docker-compose stop
 
-docker/remove:
+remove:
 	docker-compose stop
 	docker-compose rm
 
-php/bash:
+bash:
 	docker exec -it php-apache bash
 
 mysql/bash:

@@ -12,7 +12,7 @@ services:
     volumes:
       - ./workspace:/var/www/html
       - ./php-apache/php.ini:/usr/local/etc/php/php.ini
-      - ./php-apache/ssmtp.conf:/etc/ssmtp/ssmtp.conf
+      - ./php-apache/msmtprc:/etc/msmtprc
   ### MySQL ##############################################
   mysql:
     image: mysql:5.7

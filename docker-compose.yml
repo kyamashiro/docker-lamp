@@ -8,7 +8,6 @@ services:
     ports:
       - 80:80
       - 50030:50030
-    privileged: true
     volumes:
       - ./workspace:/var/www/html
       - ./php-apache/php.ini:/usr/local/etc/php/php.ini

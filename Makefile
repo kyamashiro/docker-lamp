@@ -12,7 +12,7 @@ remove:
 	docker-compose rm
 
 bash:
-	docker exec -it php-apache bash
+	docker exec -it --user 1000 php-apache bash
 
 mysql/bash:
 	docker exec -it mysql bash

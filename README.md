@@ -22,4 +22,4 @@ $ mkcert --install
 $ mkcert localhost
 ```
 
-add localhost.pem and localhost-key.pem file to php-apache/apache2/ssl
+add `localhost.pem` and `localhost-key.pem` file to `php-apache/apache2/ssl`

@@ -7,16 +7,17 @@ services:
     container_name: php-apache
     ports:
       - 80:80
-      - 50030:50030
+      - 443:443
     volumes:
       - ./workspace:/var/www/html
       - ./php-apache/php.ini:/usr/local/etc/php/php.ini
       - ./php-apache/msmtprc:/etc/msmtprc
+      - ./php-apache/apache2/ssl:/etc/apache2/ssl
+      - ./php-apache/apache2/ssl/default-ssl.conf:/etc/apache2/sites-enabled/default-ssl.conf
   ### MySQL ##############################################
   mysql:
     image: mysql:5.7
     container_name: mysql
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
       TZ: Asia/Tokyo
@@ -26,19 +27,9 @@ services:
     volumes:
       - ./db/init:/docker-entrypoint-initdb.d
       - ./db/data:/var/lib/mysql
-  ### Redis ##############################################
-  redis:
-    image: "redis:5.0.5"
-    container_name: "redis"
-    command: redis-server --appendonly yes
-    ports:
-      - 6379:6379
-    volumes:
-      - ./redis/data:/data
   ### Mailcatcher ##############################################
-  mailcatcher:
-    image: schickling/mailcatcher
-    container_name: mailcatcher
+  mailhog:
+    container_name: mailhog
+    image: mailhog/mailhog
     ports:
-      - 1080:1080
-      - 1025:1025
+      - 8025:8025

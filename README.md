@@ -1,6 +1,6 @@
 # docker-lamp
 
-Apache + MySQL + PHP7.4 + Composer + MailCatcher
+Apache + MySQL + PHP7.4 + Composer + Mailhog
 
 ```
 make build

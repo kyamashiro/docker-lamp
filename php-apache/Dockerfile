@@ -8,9 +8,11 @@ RUN apt update -yqq && apt install -yqq \
     unzip \
     vim \
     msmtp msmtp-mta \
+    libicu-dev \
+    zlib1g-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && docker-php-ext-install pdo_mysql
+    && docker-php-ext-install intl pdo_mysql
 
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug

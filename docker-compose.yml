@@ -7,16 +7,14 @@ services:
     container_name: php-apache
     ports:
       - 80:80
-      - 443:443
+      - 8080:8080
     volumes:
       - ./workspace:/var/www/html
       - ./php-apache/php.ini:/usr/local/etc/php/php.ini
       - ./php-apache/msmtprc:/etc/msmtprc
-      - ./php-apache/apache2/ssl:/etc/apache2/ssl
-      - ./php-apache/apache2/ssl/default-ssl.conf:/etc/apache2/sites-enabled/default-ssl.conf
   ### MySQL ##############################################
   mysql:
-    image: mysql:5.7
+    image: mysql:8.0
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: password

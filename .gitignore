@@ -1,4 +1,4 @@
 .idea/
 db/data/
 !.gitkeep
-php-apache/apache2/ssl/*.pem
+workspace
